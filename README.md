@@ -56,9 +56,11 @@ A sample application that demonstrates the project naming convention and package
 2. Go to cloned project directory: ``cd vaadin-sample``;
 3. There are two ways to start the applicaiton,
     * Use the comand comes with Spring Boot Maven plugin: ``mvn clean spring-boot:run``;
-    * Import the maven project into Eclipse and then right click on project in "*Project Explore*" and then click "Run As" -> "Spring Boot App"
+    * Import the maven project into Eclipse and then right click on project in "*Project Explore*" and then click "Run As" -> "Spring Boot App".
+4. Use command ``open http://localhost:8081`` to access the web page and a list of customers in the brower should be displayed;
 
 Please note,
 
 * There are some unit tests not working and remain to be fixed;
-* The computer running this sample applicaiton will need to install node.js from [here](https://nodejs.org/en/download/)
+* The computer running this sample applicaiton will need to install node.js from [here](https://nodejs.org/en/download/);
+* Using ``mvn clean package & java -jar target/host-checkout-0.0.1.jar`` command to start the application is not working for some unknown reason.  So, *Dockerfile* has not been added until the problem is fixed.
