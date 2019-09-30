@@ -19,3 +19,6 @@ _site/
 *.swp
 *.swo
 /.project
+/node_modules
+*.json
+*.js

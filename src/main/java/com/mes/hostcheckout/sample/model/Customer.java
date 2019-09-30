@@ -12,15 +12,16 @@ public class Customer {
 	private Long id;
 
 	private String firstName;
-
 	private String lastName;
+	private String amount;
 
 	public Customer() {
 	}
 
-	public Customer(String firstName, String lastName) {
+	public Customer(String firstName, String lastName, String amount) {
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.amount = amount;
 	}
 
 	public Long getId() {
@@ -43,10 +44,18 @@ public class Customer {
 		this.lastName = lastName;
 	}
 
+	public String getAmount() {
+		return amount;
+	}
+
+	public void setAmount(String amount) {
+		this.amount = amount;
+	}
+
 	@Override
 	public String toString() {
-		return String.format("Customer[id=%d, firstName='%s', lastName='%s']", id,
-				firstName, lastName);
+		return String.format("Customer[id=%d, firstName='%s', lastName='%s', amount='%s']", id,
+				firstName, lastName, amount);
 	}
 
 }

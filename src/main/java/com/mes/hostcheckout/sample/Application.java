@@ -24,11 +24,11 @@ public class Application {
 	public CommandLineRunner loadData(CustomerRepository repository) {
 		return (args) -> {
 			// save a couple of customers
-			repository.save(new Customer("Jack", "Bauer"));
-			repository.save(new Customer("Chloe", "O'Brian"));
-			repository.save(new Customer("Kim", "Bauer"));
-			repository.save(new Customer("David", "Palmer"));
-			repository.save(new Customer("Michelle", "Dessler"));
+			repository.save(new Customer("Jack", "Bauer", "10"));
+			repository.save(new Customer("Chloe", "O'Brian", "20"));
+			repository.save(new Customer("Kim", "Bauer", "30"));
+			repository.save(new Customer("David", "Palmer", "80"));
+			repository.save(new Customer("Michelle", "Dessler", "90"));
 
 			// fetch all customers
 			log.info("Customers found with findAll():");

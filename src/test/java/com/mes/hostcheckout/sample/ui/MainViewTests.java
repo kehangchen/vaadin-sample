@@ -60,7 +60,7 @@ public class MainViewTests {
 	public void shouldFillOutTheGridWithNewData() {
 		int initialCustomerCount = (int) this.repository.count();
 
-		customerDataWasFilled(editor, "John", "Doe");
+		customerDataWasFilled(editor, "John", "Doe", "0");
 
 		this.editor.save();
 
@@ -75,14 +75,14 @@ public class MainViewTests {
 	@Test
 	public void shouldFilterOutTheGridWithTheProvidedLastName() {
 
-		this.repository.save(new Customer("Merry", "May"));
+		this.repository.save(new Customer("Merry", "May", "0"));
 
 		mainView.listCustomers("Long");
 
 		then(getCustomersInGrid()).hasSize(1);
 		then(getCustomersInGrid().get(getCustomersInGrid().size() - 1))
-			.extracting("firstName", "lastName")
-			.containsExactly("Merry", "May");
+			.extracting("firstName", "lastName", "amount")
+			.containsExactly("Merry", "May", "0");
 	}
 
 	@Test
@@ -100,10 +100,10 @@ public class MainViewTests {
 	}
 
 	private void customerDataWasFilled(CustomerEditor editor, String firstName,
-			String lastName) {
+			String lastName, String amount) {
 		this.editor.firstName.setValue(firstName);
 		this.editor.lastName.setValue(lastName);
-		editor.editCustomer(new Customer(firstName, lastName));
+		editor.editCustomer(new Customer(firstName, lastName, amount));
 	}
 
 	@Configuration
@@ -115,11 +115,11 @@ public class MainViewTests {
 
 		@PostConstruct
 		public void initializeData() {
-			this.repository.save(new Customer("Jack", "Bauer"));
-			this.repository.save(new Customer("Chloe", "O'Brian"));
-			this.repository.save(new Customer("Kim", "Bauer"));
-			this.repository.save(new Customer("David", "Palmer"));
-			this.repository.save(new Customer("Michelle", "Dessler"));
+			this.repository.save(new Customer("Jack", "Bauer", "10"));
+			this.repository.save(new Customer("Chloe", "O'Brian", "20"));
+			this.repository.save(new Customer("Kim", "Bauer", "30"));
+			this.repository.save(new Customer("David", "Palmer", "80"));
+			this.repository.save(new Customer("Michelle", "Dessler", "90"));
 		}
 	}
 }

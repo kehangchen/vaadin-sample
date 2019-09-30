@@ -20,8 +20,9 @@ import javax.annotation.PostConstruct;
 @RunWith(MockitoJUnitRunner.class)
 public class CustomerEditorTests {
 
-	private static final String FIRST_NAME = "Marcin";
-	private static final String LAST_NAME = "Grzejszczak";
+	private static final String FIRST_NAME = "John";
+	private static final String LAST_NAME = "Doe";
+	private static final String AMOUNT = "0";
 
 	@Mock CustomerRepository customerRepository;
 	@InjectMocks CustomerEditor editor;
@@ -38,6 +39,7 @@ public class CustomerEditorTests {
 
 		this.editor.firstName.setValue(FIRST_NAME);
 		this.editor.lastName.setValue(LAST_NAME);
+		this.editor.amount.setValue(AMOUNT);
 
 		this.editor.save();
 
@@ -57,11 +59,11 @@ public class CustomerEditorTests {
 		this.editor.editCustomer(new Customer());
 	}
 	private void customerDataWasFilled() {
-		this.editor.editCustomer(new Customer(FIRST_NAME, LAST_NAME));
+		this.editor.editCustomer(new Customer(FIRST_NAME, LAST_NAME, AMOUNT));
 	}
 
 	private ArgumentMatcher<Customer> customerMatchesEditorFields() {
-		return customer -> FIRST_NAME.equals(customer.getFirstName()) && LAST_NAME.equals(customer.getLastName());
+		return customer -> FIRST_NAME.equals(customer.getFirstName()) && LAST_NAME.equals(customer.getLastName()) && AMOUNT.equals(customer.getAmount());
 	}
 
 }

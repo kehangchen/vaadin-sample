@@ -36,6 +36,7 @@ public class CustomerEditor extends VerticalLayout implements KeyNotifier {
 	/* Fields to edit properties in Customer entity */
 	TextField firstName = new TextField("First name");
 	TextField lastName = new TextField("Last name");
+	TextField amount = new TextField("Amount");
 
 	/* Action buttons */
 	// TODO why more code?
@@ -51,7 +52,7 @@ public class CustomerEditor extends VerticalLayout implements KeyNotifier {
 	public CustomerEditor(CustomerRepository repository) {
 		this.repository = repository;
 
-		add(firstName, lastName, actions);
+		add(firstName, lastName, amount, actions);
 
 		// bind using naming convention
 		binder.bindInstanceFields(this);
