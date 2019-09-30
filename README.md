@@ -81,6 +81,6 @@ The sample application can be run as,
 Please note,
 
 * There are some unit tests not working and remain to be fixed;
-* Spotify maven plugin will be added later to build docker image later;
+* Spotify maven plugin will be added later to build docker image;
 * The sample should have the *Amount* field as *Double* type instead of *String*.  However, it requires to use *StringToDoubleConverter* in the *binder* and I have not yet had time to change it;
 * The current sample code uses H2 in-memory database and Oracle JDBC driver should be used for Dev and production environments.
