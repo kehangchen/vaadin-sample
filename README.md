@@ -34,11 +34,31 @@ The naming convention of a project should have the follow the [Apache Maven Proj
 
 ### Java
 
-For different aspects of Java naming conventions, we will refer to the original [Java Naming Conventions](https://www.oracle.com/technetwork/java/codeconventions-135099.html). However, all of the Java package should prefix with "*com.mes*".
+For different aspects of Java naming conventions, we will refer to the original [Java Naming Conventions](https://www.oracle.com/technetwork/java/codeconventions-135099.html). However, all of the Java package should prefix with "*com.mes*".  All projects for developing Spring Boot appliacation with Vaadin UI framework should use the following namespaces,
 
-## Major Versions in Development
+* *com.mes.[projectname]* - It hosts main applicaton class to bootstrap and launch a Spring applicaton from a Java main method.
+* *com.mes.[projectname].model* - This namespace is used for all entity and POJO classes.
+* *com.mes.[projectname].ui* - It has all Vaadin views and related UI components.
+* *com.mes.[projectname].repo* - It stores JpaRepository interfaces and concrete repository implementations.
+
+## Major Versions for Development
 
 * Java - [OpenJDK 8](https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot)
 * Spring Boot - [2.1.6.RELEASE](https://github.com/spring-projects/spring-boot/releases/tag/v2.1.6.RELEASE)
 * Spring Frawework - [5.1.8.RELEASE](https://github.com/spring-projects/spring-framework/releases)
 * Vaadin Framework- [14.0.4](https://vaadin.com/releases/vaadin-14)
+
+## Sample Application
+
+A sample application that demonstrates the project naming convention and package namespances outlined above can be cloned from [github](https://github.com/kehangchen/vaadin-sample).  Developers can use this project as the template to create new Spring Boot application with Vaddin UI framework by changing the *groupId* and *artifactId* in "*pom.xml*" file and altering *hostcheckout.sample* in all namespaces to the intended name.  To run the application, 
+
+1. Clone the project: ``git clone https://github.com/kehangchen/vaadin-sample.git``;
+2. Go to cloned project directory: ``cd vaadin-sample``;
+3. There are two ways to start the applicaiton,
+    * Use the comand comes with Spring Boot Maven plugin: ``mvn clean spring-boot:run``;
+    * Import the maven project into Eclipse and then right click on project in "*Project Explore*" and then click "Run As" -> "Spring Boot App"
+
+Please note,
+
+* There are some unit tests not working and remain to be fixed;
+* The computer running this sample applicaiton will need to install node.js from [here](https://nodejs.org/en/download/)
