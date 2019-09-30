@@ -6,7 +6,7 @@ This document provides a quick reference guide for creating Spring Boot applicat
 
 ## Branching Strategy
 
-[**Note**: Any branches needed to be merged into **master** or **develop** branch must be branched off from either ***master*** or ***develop*** branch as outlined below]
+[**Note**: Any branches needed to be merged into ***master*** or ***develop*** branch must be branched off from either ***master*** or ***develop*** branch as outlined below]
 
 We are using [GitFlow](https://datasift.github.io/gitflow/IntroducingGitFlow.html) as our branching strategy with the following conventions,
 
@@ -34,9 +34,9 @@ The naming convention of a project should have the follow the [Apache Maven Proj
 
 ### Java
 
-For different aspects of Java naming conventions, we will refer to the original [Java Naming Conventions](https://www.oracle.com/technetwork/java/codeconventions-135099.html). However, all of the Java package should prefix with *com.mes*.
+For different aspects of Java naming conventions, we will refer to the original [Java Naming Conventions](https://www.oracle.com/technetwork/java/codeconventions-135099.html). However, all of the Java package should prefix with "*com.mes*".
 
-## Major Versions of Core Modules
+## Major Versions in Development
 
 * Java - [OpenJDK 8](https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot)
 * Spring Boot - [2.1.6.RELEASE](https://github.com/spring-projects/spring-boot/releases/tag/v2.1.6.RELEASE)
