@@ -50,7 +50,12 @@ For different aspects of Java naming conventions, we will refer to the original 
 
 ## Sample Application
 
-A sample application that demonstrates the project naming convention and package namespances outlined above can be cloned from [github](https://github.com/kehangchen/vaadin-sample).  Developers can use this project as the template to create new Spring Boot application with Vaddin UI framework by changing the *groupId* and *artifactId* in "*pom.xml*" file and altering *hostcheckout.sample* in all namespaces to the intended name.  To run the application, 
+A sample application that demonstrates the project naming convention and package namespances outlined above can be cloned from [github](https://github.com/kehangchen/vaadin-sample).  Developers can use this project as the template to create new Spring Boot application with Vaddin UI framework by changing the *groupId* and *artifactId* in "*pom.xml*" file and altering *hostcheckout.sample* in all namespaces to the intended name.  There are prerequisites to run the sample application,
+
+* [Apache Maven](https://maven.apache.org/install.html) - It is used as our project management and build tool for Java projects;
+* [Node.js](https://nodejs.org/en/download/) - Vaadin uses *npm* to install all required UI packages during the the application startup if the packages have not installed before in the server.
+
+The sample application can be run as,
 
 1. Clone the project: ``git clone https://github.com/kehangchen/vaadin-sample.git``;
 2. Go to cloned project directory: ``cd vaadin-sample``;
@@ -62,5 +67,6 @@ A sample application that demonstrates the project naming convention and package
 Please note,
 
 * There are some unit tests not working and remain to be fixed;
-* The computer running this sample applicaiton will need to install node.js from [here](https://nodejs.org/en/download/);
-* Using ``mvn clean package & java -jar target/host-checkout-0.0.1.jar`` command to start the application is not working for some unknown reason.  So, *Dockerfile* has not been added until the problem is fixed.
+* Using ``mvn clean package & java -jar target/host-checkout-0.0.1.jar`` command to start the application is not working for some unknown reason.  So, *Dockerfile* has not been added until the problem is fixed;
+* The sample should have the *Amount* field as *Double* type instead of *String*.  However, it requires to use *StringToDoubleConverter* in the *binder* and I have not yet had time to change it;
+* The current sample code uses H2 in-memory database and Oracle JDBC driver should be used for Dev and production environments.
