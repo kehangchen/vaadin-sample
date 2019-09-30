@@ -28,51 +28,17 @@ Every project developed for MeS SOA initiative will use a Jenkins pipeline to in
 
 ## Naming Conventions
 
-### Repository
+### Project
 
-The naming convention of a repository should follow the category of application function.  Currently, there are six (6) different categories,
-
-* ***data*** - This category is used for RESTFul services that retrieve resources from different places, such as database, third party micro-services, files, and etc.  The repository for this type of applications will use *"soa-data"* prefix plus *"[application-name]"* as the naming scheme, such as *"soa-data-merchant-service"*.
-* ***task*** - This category is used for micro-services that perform specific business logics.  It should not have any function to access resource directly.  The repository for this type of applications will have *"soa-task"* prefix plus *"[application-name]"* as the naming scheme, such as *"soa-task-netsuite-transform-service"*.
-* ***util*** - This category is used for micro-services that perform common or infrastructure related services.  The repository for this type of applications will have *"soa-util"* prefix plus *"[application-name]"* as the naming scheme, such as *"soa-util-logging-service"* and *"soa-util-email-service"*.
-* ***bpmn*** - This category is specified for modules that will be deployed into BPMN processing engine, such as a JavaDelegate used in a BPMN workflow.  The repository for this type of applications will use *"soa-bpmn"* prefix plus *"[application-name]"* as the naming scheme, such as *"soa-bpmn-clearing-summary-delegate"*.
-* ***dmon*** - This category is used for micro-services that perform specific business logics as daemon or background services. The repository for this type of applications will have *"soa-dmon"* prefix and *"[application-name]"* as the naming scheme, such as *"soa-dmon-settlement-clearing-daemon"*.
-* ***frwk*** - This category groups framework/common libraries that will be used by most of the applications and services outlined above. The repository for this type of applications will have *"soa-frwk"* prefix plus *"[application-name]"* as the naming scheme, such as *"soa-frwk-exception-handling"*, *"soa-frwk-request-validation"*, *"soa-frwk-caching", and etc.
-
-Please note, the *"groupId"* and *"artifactId"* of the maven pom of a repository should have the corresponding values.  Use the above *"soa-frwk-request-validation"* as example, the *"groupId"* should be *"com.mes.soa.frwk" and the *"artifactId"* should be *"request-validation"*, and *"soa-data-merchant-service"* has "com.mes.soa.data" as the *"groupId"* and *"merchant-service"* as the *"artifactId"*.
+The naming convention of a project should have the follow the [Apache Maven Project](https://maven.apache.org/guides/mini/guide-naming-conventions.html) and we will use "-" to separate words if there are more than one word to describe the project name, such as *host-checkout* and etc.  Also, the repository name in Bitbucket should be same as the project name.
 
 ### Java
 
-For different aspects of Java naming conventions, we will refer to the original [Java Naming Conventions](https://www.oracle.com/technetwork/java/codeconventions-135099.html). However, all of the Java package should prefix with one of the following string depending on the naming convention of their corresponding repositories,
-
-* ***com.mes.soa.data*** - This is for repository with *"soa-data"* prefix.
-* ***com.mes.soa.task*** - This is for repository with *"soa-task"* prefix.
-* ***com.mes.soa.util*** - This is for repository with *"soa-util"* prefix.
-* ***com.mes.soa.bpmn*** - This is for repository with *"soa-bpmn"* prefix.
-* ***com.mes.soa.dmon*** - This is for repository with *"soa-dmon"* prefix.
-* ***com.mes.soa.frwk*** - This is for repository with *"soa-frwk"* prefix.
+For different aspects of Java naming conventions, we will refer to the original [Java Naming Conventions](https://www.oracle.com/technetwork/java/codeconventions-135099.html). However, all of the Java package should prefix with *com.mes*.
 
 ## Major Versions of Core Modules
 
-* Java - [OpenJDK 11](https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot)
-* Spring Boot - [2.1.5.RELEASE](https://github.com/spring-projects/spring-boot/releases/tag/v2.1.5.RELEASE)
-* Spring Frawework - [5.1.7.RELEASE](https://github.com/spring-projects/spring-framework/releases)
-* Apache Camel - 2.24.1
-* Apache Tomcat - [9.0.19](https://tomcat.apache.org/tomcat-9.0-doc/changelog.html)
-* Flyway - [5.2.4](https://flywaydb.org/blog/flyway-5.2.3) (Java-based database tools for refactoring and versioning)
-* Apache Ignite - [2.7.5](https://github.com/apache/ignite/blob/master/RELEASE_NOTES.txt) (In-memory data grid). For integrating with spring using ignite-spring-data_2.0, see [this](https://stackoverflow.com/questions/54463865/spring-boot-2-1-ignite-repository-2-7-0-workaround-for-spring-data-commons-is) to solve the problem
-* Apache Maven - 3.6.1
-* Comunda - [7.11.0](https://blog.camunda.com/post/2019/05/camunda-bpm-7110-released/) (Community Platform)
-* PostGreSQL - [11.5](https://www.postgresql.org/support/versioning/)
-* MongoDB - [4.2](https://docs.mongodb.com/manual/release-notes/4.2/)
-* Jenkins - 2.176.2
-* SonarQube - [7.9.x](https://www.sonarqube.org/downloads/)
-* Artifactory - [6.12](https://www.jfrog.com/confluence/display/RTF/Release+Notes#ReleaseNotes-Artifactory6.12)
-* Docker Registry - [2.7.2](https://hub.docker.com/_/registry)
-* Kubernetes - [v1.15.3](https://kubernetes.io/docs/setup/release/notes/#kubernetes-v1-15-release-notes)
-* Docker Engine - [19.03.1](https://docs.docker.com/engine/release-notes/)
-* EFK Stack - [?]
-* NGINX Plus - [R18](https://docs.nginx.com/nginx/releases/)
-* Kafka - [Confluent Platform Community 5.3.0](https://docs.confluent.io/5.3.0/release-notes/index.html)
-* OpenAPI - [3.0.0](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md)
-* kops - [1.13.0](https://github.com/kubernetes/kops) (Kubernetes Operations)
+* Java - [OpenJDK 8](https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot)
+* Spring Boot - [2.1.6.RELEASE](https://github.com/spring-projects/spring-boot/releases/tag/v2.1.6.RELEASE)
+* Spring Frawework - [5.1.8.RELEASE](https://github.com/spring-projects/spring-framework/releases)
+* Vaadin Framework- [14.0.4](https://vaadin.com/releases/vaadin-14)
