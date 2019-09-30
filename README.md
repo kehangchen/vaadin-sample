@@ -30,7 +30,7 @@ Every project developed for MeS SOA initiative will use a Jenkins pipeline to in
 
 ### Project
 
-The naming convention of a project should have the follow the [Apache Maven Project](https://maven.apache.org/guides/mini/guide-naming-conventions.html) and we will use "-" to separate words if there are more than one word to describe the project name, such as *host-checkout* and etc.  Also, the repository name in Bitbucket should be same as the project name.
+The naming convention of a project should have the follow the [Apache Maven Project](https://maven.apache.org/guides/mini/guide-naming-conventions.html) and we will use "-" to separate words if there are more than one word to describe the project name, such as *host-checkout* and etc.  Also, the repository name in Bitbucket should be the same as the project name.
 
 ### Java
 
@@ -48,25 +48,39 @@ For different aspects of Java naming conventions, we will refer to the original 
 * Spring Frawework - [5.1.8.RELEASE](https://github.com/spring-projects/spring-framework/releases)
 * Vaadin Framework- [14.0.4](https://vaadin.com/releases/vaadin-14)
 
+## Deploymet
+
+We will package all modules including Vaadin UI components and Java libraries in a single war file with the following command,
+```mvn clean vaadin:prepare-frontend vaadin:build-frontend package```
+
+Depending on the deployment environment, there are different methods to accommodate it,
+
+* Docker Engine - Build the docker image with the war file built above: ``docker build -t <registry-url>/<appliation-name>/<version> .`` and then push the image to docker registry: ``docker push <registry-url>/<appliation-name>/<version>``;
+* Tomcat Server - SCP the war file built above into *<tomcat-home>/webapp* folder;
+* Daemon Service - It will need to use the following command to build the application ``mvn clean vaadin:prepare-frontend vaadin:build-frontend package -P service`` and then start it by directly calling the built war file, such as ``target/host-checkout-0.0.1.war`` with sample application outlined below.
+
 ## Sample Application
 
 A sample application that demonstrates the project naming convention and package namespances outlined above can be cloned from [github](https://github.com/kehangchen/vaadin-sample).  Developers can use this project as the template to create new Spring Boot application with Vaddin UI framework by changing the *groupId* and *artifactId* in "*pom.xml*" file and altering *hostcheckout.sample* in all namespaces to the intended name.  There are prerequisites to run the sample application,
 
 * [Apache Maven](https://maven.apache.org/install.html) - It is used as our project management and build tool for Java projects;
-* [Node.js](https://nodejs.org/en/download/) - Vaadin uses *npm* to install all required UI packages during the the application startup if the packages have not installed before in the server.
+* [Node.js](https://nodejs.org/en/download/) - Vaadin uses *npm* to install all required UI packages during the compilation or application startup if the packages have not installed before in the server.
 
 The sample application can be run as,
 
 1. Clone the project: ``git clone https://github.com/kehangchen/vaadin-sample.git``;
 2. Go to cloned project directory: ``cd vaadin-sample``;
-3. There are two ways to start the applicaiton,
+3. There are several ways to start the applicaiton,
     * Use the comand comes with Spring Boot Maven plugin: ``mvn clean spring-boot:run``;
+    * Build the jar with all the needed packages and then run it: ``mvn clean vaadin:prepare-frontend vaadin:build-frontend package -DskipTests; java -jar target/host-checkout-0.0.1.war``
+    * Build the jar with all the needed packages and then run it as a regular application: ``mvn clean vaadin:prepare-frontend vaadin:build-frontend package -DskipTests -P service; target/host-checkout-0.0.1.war``
     * Import the maven project into Eclipse and then right click on project in "*Project Explore*" and then click "Run As" -> "Spring Boot App".
+    * Build the docker image and then start a docker container from the resulted image: ``mvn clean vaadin:prepare-frontend vaadin:build-frontend package -DskipTests; docker build -t vaadin/host-checkout .; docker run --name hostcheckout -p 8081:8081 vaadin/host-checkout``
 4. Use command ``open http://localhost:8081`` to access the web page and a list of customers in the brower should be displayed;
 
 Please note,
 
 * There are some unit tests not working and remain to be fixed;
-* Using ``mvn clean package & java -jar target/host-checkout-0.0.1.jar`` command to start the application is not working for some unknown reason.  So, *Dockerfile* has not been added until the problem is fixed;
+* Spotify maven plugin will be added later to build docker image later;
 * The sample should have the *Amount* field as *Double* type instead of *String*.  However, it requires to use *StringToDoubleConverter* in the *binder* and I have not yet had time to change it;
 * The current sample code uses H2 in-memory database and Oracle JDBC driver should be used for Dev and production environments.
