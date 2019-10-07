@@ -10,17 +10,18 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.converter.StringToDoubleConverter;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * A simple example to introduce building forms. As your real application is probably much
- * more complicated than this example, you could re-use this form in multiple places. This
- * example component is only used in MainView.
+ * A simple example to introduce building forms. As your real application is
+ * probably much more complicated than this example, you could re-use this form
+ * in multiple places. This example component is only used in MainView.
  * <p>
- * In a real world application you'll most likely using a common super class for all your
- * forms - less code, better UX.
+ * In a real world application you'll most likely using a common super class for
+ * all your forms - less code, better UX.
  */
 @SpringComponent
 @UIScope
@@ -36,7 +37,7 @@ public class CustomerEditor extends VerticalLayout implements KeyNotifier {
 	/* Fields to edit properties in Customer entity */
 	TextField firstName = new TextField("First name");
 	TextField lastName = new TextField("Last name");
-	TextField amount = new TextField("Amount");
+	final TextField amount = new TextField("Amount");
 
 	/* Action buttons */
 	// TODO why more code?
@@ -95,8 +96,7 @@ public class CustomerEditor extends VerticalLayout implements KeyNotifier {
 		if (persisted) {
 			// Find fresh entity for editing
 			customer = repository.findById(c.getId()).get();
-		}
-		else {
+		} else {
 			customer = c;
 		}
 		cancel.setVisible(persisted);

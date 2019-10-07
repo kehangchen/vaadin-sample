@@ -22,3 +22,4 @@ _site/
 /node_modules
 *.json
 *.js
+README.pdf

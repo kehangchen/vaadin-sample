@@ -19,7 +19,7 @@ public class ApplicationTests {
 
 	@Test
 	public void shouldFillOutComponentsWithDataWhenTheApplicationIsStarted() {
-		then(this.repository.count()).isEqualTo(5);
+		then(this.repository.count()).isEqualTo(8);
 	}
 
 	@Test
