@@ -26,6 +26,10 @@ def artifact_group_id = ''
 def artifact_id = ''
 def artifact_version = ''
 def artifact_packaging = ''
+def ssh_user = 'docker'
+def docker_registry = 'localhost:5000'
+def docker_container = ''
+def docker_container_name_postfix = ''
 
 node() { 
 def workspace = pwd() 
