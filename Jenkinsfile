@@ -43,6 +43,7 @@ pipeline {
 				script {
 					echo docker_registry.toUpperCase();
 					def branch_indicator = GIT_BRANCH.minus("origin/").split("/");
+					println("branch_indicator: " + branch_indicator);
 					switch (branch_indicator.toUpperCase()) {
 						case "MASTER":
 							build_type = 0;
