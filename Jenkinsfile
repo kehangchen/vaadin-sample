@@ -41,6 +41,7 @@ pipeline {
 		stage('Preparation') {
 			steps {
 				script {
+					echo docker_registry.toUpperCase();
 					def branch_indicator = GIT_BRANCH.minus("origin/").split("/");
 					switch (branch_indicator.toUpperCase()) {
 						case "MASTER":
