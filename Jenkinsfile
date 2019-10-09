@@ -148,15 +148,19 @@ pipeline {
 				// 	docker tag ${docker_name}:latest ${dockerlogin}/${docker_repo}:${docker_tag}
 				// 	docker push ${dockerlogin}/${docker_repo}:${docker_tag}
 				// 	"""
-				sh 'mvn clean package dockerfile:build dockerfile:push'
-				if ( use_mvn_global_settings_file_path ) {
-					withMaven(maven: maven_tool_name, jdk: jdk_tool_name, globalMavenSettingsFilePath: maven_settings_file_id) {
-						sh 'mvn dockerfile:build dockerfile:push'
+				// sh 'mvn clean package dockerfile:build dockerfile:push'
+
+				echo 'Buiding docker images and pushing it to a docker registry defined in pom.xml'
+				script {
+					if ( use_mvn_global_settings_file_path ) {
+						withMaven(maven: maven_tool_name, jdk: jdk_tool_name, globalMavenSettingsFilePath: maven_settings_file_id) {
+							sh 'mvn dockerfile:build dockerfile:push'
+						}
 					}
-				}
-				else {
-					withMaven(maven: maven_tool_name, jdk: jdk_tool_name, mavenSettingsConfig: maven_settings_file_id) {
-						sh 'mvn dockerfile:build dockerfile:push'
+					else {
+						withMaven(maven: maven_tool_name, jdk: jdk_tool_name, mavenSettingsConfig: maven_settings_file_id) {
+							sh 'mvn dockerfile:build dockerfile:push'
+						}
 					}
 				}
 			}    
