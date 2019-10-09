@@ -198,23 +198,23 @@ pipeline {
 	}
 	post {
 		always {
-			script {
-				allure([
-					includeProperties: false,
-					jdk: '',
-					properties: [],
-					reportBuildPolicy: 'ALWAYS',
-					results: [[path: "${workspace}/${test_git_repo}/IntegrationTest/target/allure-results"], [path: "${workspace}/${test_git_repo}/FunctionalTest/target/allure-results"], [path: "${workspace}/${test_git_repo}/ComponentTest/target/allure-results"]]
-				])
-				publishHTML(target: [
-					reportName : 'Serenity Report',
-					reportDir:   "${workspace}/${test_git_repo}/SerenityTest/target/site/serenity",
-					reportFiles: 'index.html',
-					keepAll:     true,
-					alwaysLinkToLastBuild: true,
-					allowMissing: false
-				])
-			}
+			// script {
+			// 	allure([
+			// 		includeProperties: false,
+			// 		jdk: '',
+			// 		properties: [],
+			// 		reportBuildPolicy: 'ALWAYS',
+			// 		results: [[path: "${workspace}/${test_git_repo}/IntegrationTest/target/allure-results"], [path: "${workspace}/${test_git_repo}/FunctionalTest/target/allure-results"], [path: "${workspace}/${test_git_repo}/ComponentTest/target/allure-results"]]
+			// 	])
+			// 	publishHTML(target: [
+			// 		reportName : 'Serenity Report',
+			// 		reportDir:   "${workspace}/${test_git_repo}/SerenityTest/target/site/serenity",
+			// 		reportFiles: 'index.html',
+			// 		keepAll:     true,
+			// 		alwaysLinkToLastBuild: true,
+			// 		allowMissing: false
+			// 	])
+			// }
 			echo "This is always executed and will be used to clean up if needed"
 		}
 		success {
