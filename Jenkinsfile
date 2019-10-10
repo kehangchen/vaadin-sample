@@ -30,6 +30,7 @@ def ssh_user = 'docker'
 def docker_registry = 'localhost:5000'
 def docker_container = ''
 def docker_container_name_postfix = ''
+def sonar_qg_wait_time = 5
 
 node() { 
 def workspace = pwd() 
