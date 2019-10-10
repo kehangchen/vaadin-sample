@@ -2,7 +2,7 @@
 
 def microservice = "vaadin-sample" 
 def service_git_repo = "vaadin-sample" 
-def test_git_repo = service_git_repo // + "-tests"
+def test_git_repo = service_git_repo + "-tests"
 def docker_repo = "loggingutilityservice"
 def docker_name = "loggingutilityservice-microservice"
 def docker_tag = "1.0.2"
@@ -130,7 +130,7 @@ pipeline {
 				script {
 					echo 'Retrieving corresponding test project'
 					git credentialsId: 'JenkinsAccessingLocalGitLab', url: "http://10.4.101.92:9082/root/${test_git_repo}.git"
-					sh 'cd ./${test_git_repo}/ComponentTest/'
+					sh "cd ./${test_git_repo}/ComponentTest/"
 					echo 'Performing Component tests'
 					if ( use_mvn_global_settings_file_path ) {
 						withMaven(maven: maven_tool_name, jdk: jdk_tool_name, globalMavenSettingsFilePath: maven_settings_file_id) {
