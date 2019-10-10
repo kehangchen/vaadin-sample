@@ -126,10 +126,10 @@ pipeline {
 				expression { return build_type < 5 }
 			}
 			steps {
-				git credentialsId: 'JenkinsAccessingLocalGitLab', url: 'http://10.4.101.92:9082/root/${test_git_repo}.git'
+				//git credentialsId: 'JenkinsAccessingLocalGitLab', url: "http://10.4.101.92:9082/root/${test_git_repo}.git"
 				script {
 					echo 'Retrieving corresponding test project'
-					git credentialsId: 'JenkinsAccessingLocalGitLab', url: 'http://10.4.101.92:9082/root/${test_git_repo}.git'
+					git credentialsId: 'JenkinsAccessingLocalGitLab', url: "http://10.4.101.92:9082/root/${test_git_repo}.git"
 					sh 'cd ./${test_git_repo}/ComponentTest/'
 					echo 'Performing Component tests'
 					if ( use_mvn_global_settings_file_path ) {
