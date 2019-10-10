@@ -1,8 +1,8 @@
 #!/bin/groovy
 
-def microservice = "logging-utility-service" 
-def service_git_repo = "logging-utility-service" 
-def test_git_repo = service_git_repo + "-tests"
+def microservice = "vaadin-sample" 
+def service_git_repo = "vaadin-sample" 
+def test_git_repo = service_git_repo // + "-tests"
 def docker_repo = "loggingutilityservice"
 def docker_name = "loggingutilityservice-microservice"
 def docker_tag = "1.0.2"
@@ -31,6 +31,7 @@ def docker_registry = 'localhost:5000'
 def docker_container = ''
 def docker_container_name_postfix = ''
 def sonar_qg_wait_time = 5
+def git_credentials = "JenkinsAccessingLocalGitLab"
 
 node() { 
 def workspace = pwd() 
@@ -127,7 +128,7 @@ pipeline {
 			steps {
 				script {
 					echo 'Retrieving corresponding test project'
-					git credentialsId: git_credentials, url: 'bitbucket.org:merchante-solutions/${test_git_repo}.git'
+					git credentialsId: git_credentials, url: 'http://10.4.101.92:9082/root/${test_git_repo}.git'
 					sh 'cd ./${test_git_repo}/ComponentTest/'
 					echo 'Performing Component tests'
 					if ( use_mvn_global_settings_file_path ) {
