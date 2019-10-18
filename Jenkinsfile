@@ -134,11 +134,13 @@ pipeline {
 					echo 'Performing Component tests'
 					if ( use_mvn_global_settings_file_path ) {
 						withMaven(maven: maven_tool_name, jdk: jdk_tool_name, globalMavenSettingsFilePath: maven_settings_file_id) {
+							sh 'cd ./ComponentTest/'
 							sh 'mvn clean package -Dmaven.test.failure.ignore=true'
 						}
 					}
 					else {
 						withMaven(maven: maven_tool_name, jdk: jdk_tool_name, mavenSettingsConfig: maven_settings_file_id) {
+							sh 'cd ./ComponentTest/'
 							sh 'mvn clean package -Dmaven.test.failure.ignore=true'
 						}
 					}

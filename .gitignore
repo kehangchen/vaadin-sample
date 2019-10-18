@@ -23,3 +23,11 @@ _site/
 *.json
 *.js
 README.pdf
+node/
+node_modules/
+build/
+config/
+package-lock.json
+package.json
+webpack.config.js
+webpack.generated.js
