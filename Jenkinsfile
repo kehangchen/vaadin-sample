@@ -163,7 +163,7 @@ pipeline {
 				script {
 					if ( use_mvn_global_settings_file_path ) {
 						withMaven(maven: maven_tool_name, jdk: jdk_tool_name, globalMavenSettingsFilePath: maven_settings_file_id) {
-							sh 'mvn dockerfile:build dockerfile:push'
+							sh 'mvn dockerfile:build'
 						}
 					}
 					else {
