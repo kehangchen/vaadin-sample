@@ -130,18 +130,18 @@ pipeline {
 				script {
 					echo 'Retrieving corresponding test project'
 					git credentialsId: 'JenkinsAccessingLocalGitLab', url: "http://10.4.101.92:9082/root/${test_git_repo}.git"
-					sh "cd ./ComponentTest/"
+					
 					echo 'Performing Component tests'
 					if ( use_mvn_global_settings_file_path ) {
 						withMaven(maven: maven_tool_name, jdk: jdk_tool_name, globalMavenSettingsFilePath: maven_settings_file_id) {
-							sh 'cd ./ComponentTest/'
-							sh 'mvn clean package -Dmaven.test.failure.ignore=true'
+							
+							sh 'mvn clean package -PComponentTest'
 						}
 					}
 					else {
 						withMaven(maven: maven_tool_name, jdk: jdk_tool_name, mavenSettingsConfig: maven_settings_file_id) {
-							sh 'cd ./ComponentTest/'
-							sh 'mvn clean package -Dmaven.test.failure.ignore=true'
+							
+							sh 'mvn clean package -PComponentTest'
 						}
 					}
 				}
@@ -187,12 +187,9 @@ pipeline {
 		stage('Sanity & Smoke Test Execution') {
 			steps {
 				sh """
-					cd ${workspace}/IntegrationTest/ 
-					mvn clean package
-					cd ${workspace}/FunctionalTest/ 
-					mvn clean package
-					cd ${workspace}/SerenityTest/
-					mvn clean install
+					mvn clean package -PComponentTest
+					mvn clean package -PIntegrationTest
+					mvn clean package -PSerenityTest
 					curl --header "Content-Type: application/json" --request POST   --data '{}' http://18.188.203.173:8080/em/api/v2/jobs/${job_number}/histories?async=false
 					"""
 			}			
