@@ -56,10 +56,10 @@ pipeline {
 						case "RELEASE":
 							build_type = 2;
 							break;
-						case "FEATURE":
+						case "HOTFIX":
 							build_type = 3;
 							break;
-						case "HOTFIX":
+						case "FEATURE":
 							build_type = 4;
 							break;
 						default:
@@ -150,15 +150,10 @@ pipeline {
 			} 
 		}
 		stage('Repository Tagging & Artifact Building & Artifact Publishing') {
-			steps {        
-				// sh """ 
-				// 	docker build -t  "${docker_name}" .
-				// 	docker login --username=${dockerlogin} --password=${dockerpass}	
-				// 	docker tag ${docker_name}:latest ${dockerlogin}/${docker_repo}:${docker_tag}
-				// 	docker push ${dockerlogin}/${docker_repo}:${docker_tag}
-				// 	"""
-				// sh 'mvn clean package dockerfile:build dockerfile:push'
-
+			when {
+				expression { return build_type < 4 }
+			}
+			steps {
 				echo 'Buiding docker images and pushing it to a docker registry defined in pom.xml'
 				script {
 					if ( use_mvn_global_settings_file_path ) {
@@ -174,7 +169,10 @@ pipeline {
 				}
 			}    
 		}
-		stage('Team Specific Environment Artifact Deployment') { 	 
+		stage('Team Specific Environment Artifact Deployment') {
+			when {
+				expression { return build_type < 4 }
+			}
 			steps {
 				sh """
 					ssh -l root 18.188.142.122 rm -rf /home/ubuntu/Microservices/${microservice} 
@@ -187,9 +185,11 @@ pipeline {
 			}
 		}
 		stage('Sanity & Smoke Test Execution') {
+			when {
+				expression { return build_type < 4 }
+			}
 			steps {
 				sh """
-					mvn clean test -PComponentTest
 					mvn clean test -PIntegrationTest
 					mvn clean test -PSerenityTest
 					curl --header "Content-Type: application/json" --request POST   --data '{}' http://18.188.203.173:8080/em/api/v2/jobs/${job_number}/histories?async=false
