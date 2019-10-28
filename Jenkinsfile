@@ -127,7 +127,6 @@ pipeline {
 				expression { return build_type < 5 }
 			}
 			steps {
-				//git credentialsId: 'JenkinsAccessingLocalGitLab', url: "http://10.4.101.92:9082/root/${test_git_repo}.git"
 				script {
 					echo 'Retrieving corresponding test project'
 					dir("${test_git_repo}") {
@@ -135,14 +134,12 @@ pipeline {
 						
 						echo 'Performing Component tests'
 						if ( use_mvn_global_settings_file_path ) {
-							withMaven(maven: maven_tool_name, jdk: jdk_tool_name, globalMavenSettingsFilePath: maven_settings_file_id) {
-								
+							withMaven(maven: maven_tool_name, jdk: jdk_tool_name, globalMavenSettingsFilePath: maven_settings_file_id) {								
 								sh 'mvn clean test -PComponentTest'
 							}
 						}
 						else {
-							withMaven(maven: maven_tool_name, jdk: jdk_tool_name, mavenSettingsConfig: maven_settings_file_id) {
-								
+							withMaven(maven: maven_tool_name, jdk: jdk_tool_name, mavenSettingsConfig: maven_settings_file_id) {								
 								sh 'mvn clean test -PComponentTest'
 							}
 						}
@@ -185,23 +182,66 @@ pipeline {
 					"""
 			}
 		}
-		stage('Sanity & Smoke Test Execution') {
+		stage('Functional Tests') {
 			when {
 				expression { return build_type < 4 }
 			}
 			steps {
-				sh """
-					mvn clean test -PIntegrationTest
-					mvn clean test -PSerenityTest
-					curl --header "Content-Type: application/json" --request POST   --data '{}' http://18.188.203.173:8080/em/api/v2/jobs/${job_number}/histories?async=false
-					"""
+				// sh """
+				// 	mvn clean test -PIntegrationTest
+				// 	mvn clean test -PSerenityTest
+				// 	curl --header "Content-Type: application/json" --request POST   --data '{}' http://18.188.203.173:8080/em/api/v2/jobs/${job_number}/histories?async=false
+				// 	"""
+
+				script {
+					echo 'Performing Functional tests'
+					if ( use_mvn_global_settings_file_path ) {
+						withMaven(maven: maven_tool_name, jdk: jdk_tool_name, globalMavenSettingsFilePath: maven_settings_file_id) {								
+							sh 'mvn clean test -PFunctionalTest'
+						}
+					}
+					else {
+						withMaven(maven: maven_tool_name, jdk: jdk_tool_name, mavenSettingsConfig: maven_settings_file_id) {								
+							sh 'mvn clean test -PFunctionalTest'
+						}
+					}
+				}
 			}			
 		}
-		stage('Manual & Regression Tests Execution') {
+		stage('Integration Tests') {
 			steps {
-				sh 'echo "Test completed"'
+				script {
+					echo 'Performing Integration tests'
+					if ( use_mvn_global_settings_file_path ) {
+						withMaven(maven: maven_tool_name, jdk: jdk_tool_name, globalMavenSettingsFilePath: maven_settings_file_id) {								
+							sh 'mvn clean test -PIntegrationTest'
+						}
+					}
+					else {
+						withMaven(maven: maven_tool_name, jdk: jdk_tool_name, mavenSettingsConfig: maven_settings_file_id) {								
+							sh 'mvn clean test -PIntegrationTest'
+						}
+					}
+				}
 			}   
-		}		
+		}
+		stage('Serenity Tests') {
+			steps {
+				script {
+					echo 'Performing Serenity tests'
+					if ( use_mvn_global_settings_file_path ) {
+						withMaven(maven: maven_tool_name, jdk: jdk_tool_name, globalMavenSettingsFilePath: maven_settings_file_id) {								
+							sh 'mvn clean test -PSerenityTest'
+						}
+					}
+					else {
+						withMaven(maven: maven_tool_name, jdk: jdk_tool_name, mavenSettingsConfig: maven_settings_file_id) {								
+							sh 'mvn clean test -PSerenityTest'
+						}
+					}
+				}
+			}   
+		}
 	}
 	post {
 		always {
