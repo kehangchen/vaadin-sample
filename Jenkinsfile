@@ -209,6 +209,9 @@ pipeline {
 			}			
 		}
 		stage('Integration Tests') {
+			when {
+				expression { return build_type < 4 }
+			}
 			steps {
 				script {
 					echo 'Performing Integration tests'
@@ -226,6 +229,9 @@ pipeline {
 			}   
 		}
 		stage('Serenity Tests') {
+			when {
+				expression { return build_type < 4 }
+			}
 			steps {
 				script {
 					echo 'Performing Serenity tests'
