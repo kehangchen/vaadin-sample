@@ -43,6 +43,7 @@ pipeline {
 		stage('Preparation') {
 			steps {
 				script {
+					sh 'printenv | sort'
 					echo docker_registry.toUpperCase();
 					def branch_indicator = GIT_BRANCH.minus("origin/").split("/");
 					println("branch name: " + GIT_BRANCH);
@@ -172,14 +173,17 @@ pipeline {
 				expression { return build_type < 4 }
 			}
 			steps {
-				sh """
-					ssh -l root 18.188.142.122 rm -rf /home/ubuntu/Microservices/${microservice} 
-					ssh -l root 18.188.142.122 mkdir /home/ubuntu/Microservices/${microservice}
-					ssh -l root 18.188.142.122 git clone -b"Kubernetes" https://aswinradhakrishnan93:Redminote%404@bitbucket.org/merchante-solutions/${service_git_repo}.git  /home/ubuntu/Microservices/${microservice} 
-					ssh -l root 18.188.142.122 sed  -i 's/tag/${docker_tag}/g' /home/ubuntu/Microservices/${microservice}/application.yaml
-					ssh -l root 18.188.142.122 kubectl apply -f /home/ubuntu/Microservices/${microservice}/application.yaml 
-					ssh -l root 18.188.142.122 kubectl apply -f /home/ubuntu/Microservices/${microservice}/service.yaml 
-					"""
+				script {
+					echo 'Deploying Docker into Team Specific Environment'
+				}
+				// sh """
+				// 	ssh -l root 18.188.142.122 rm -rf /home/ubuntu/Microservices/${microservice} 
+				// 	ssh -l root 18.188.142.122 mkdir /home/ubuntu/Microservices/${microservice}
+				// 	ssh -l root 18.188.142.122 git clone -b"Kubernetes" https://aswinradhakrishnan93:Redminote%404@bitbucket.org/merchante-solutions/${service_git_repo}.git  /home/ubuntu/Microservices/${microservice} 
+				// 	ssh -l root 18.188.142.122 sed  -i 's/tag/${docker_tag}/g' /home/ubuntu/Microservices/${microservice}/application.yaml
+				// 	ssh -l root 18.188.142.122 kubectl apply -f /home/ubuntu/Microservices/${microservice}/application.yaml 
+				// 	ssh -l root 18.188.142.122 kubectl apply -f /home/ubuntu/Microservices/${microservice}/service.yaml 
+				// 	"""
 			}
 		}
 		stage('Functional Tests') {
@@ -187,12 +191,6 @@ pipeline {
 				expression { return build_type < 4 }
 			}
 			steps {
-				// sh """
-				// 	mvn clean test -PIntegrationTest
-				// 	mvn clean test -PSerenityTest
-				// 	curl --header "Content-Type: application/json" --request POST   --data '{}' http://18.188.203.173:8080/em/api/v2/jobs/${job_number}/histories?async=false
-				// 	"""
-
 				script {
 					echo 'Performing Functional tests'
 					if ( use_mvn_global_settings_file_path ) {
