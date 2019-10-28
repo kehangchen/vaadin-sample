@@ -228,7 +228,7 @@ pipeline {
 		}
 		stage('Serenity Tests') {
 			when {
-				expression { return build_type < 4 }
+				expression { return build_type < 3 }
 			}
 			steps {
 				script {
