@@ -122,7 +122,7 @@
 				<configuration>
                     <tag>${project.version}</tag>
                     <image>${project.artifactId}:${project.version}</image>
-                    <repository>${docker.image.prefix}/${docker.image.name}</repository>
+                    <repository>http://${docker.image.prefix}/${docker.image.name}</repository>
                 	<useMavenSettingsForAuth>true</useMavenSettingsForAuth> 
 				</configuration>
 			</plugin>
