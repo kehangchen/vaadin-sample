@@ -1,6 +1,6 @@
 #!/bin/groovy
 
-def microservice = "vaadin-sample" 
+// def microservice = "vaadin-sample" 
 def service_git_repo = "vaadin-sample" 
 def test_git_repo = service_git_repo + "-tests"
 def docker_repo = "loggingutilityservice"
