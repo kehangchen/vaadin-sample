@@ -120,10 +120,9 @@
 				<artifactId>dockerfile-maven-plugin</artifactId>
                 <version>1.4.8</version>
 				<configuration>
-                    <dockerHost>http://${docker.image.prefix}</dockerHost>
                     <tag>${project.version}</tag>
                     <image>${project.artifactId}:${project.version}</image>
-                    <repository>${docker.image.name}</repository>
+                    <repository>${docker.image.prefix}/${docker.image.name}</repository>
                 	<useMavenSettingsForAuth>true</useMavenSettingsForAuth> 
 				</configuration>
 			</plugin>
