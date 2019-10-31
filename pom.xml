@@ -18,8 +18,8 @@
         <java.version>1.8</java.version>
         <vaadin.version>14.0.4</vaadin.version>
         <fabric.version>3.5.41</fabric.version>
-        <docker.image.prefix>10.4.101.92:9084</docker.image.prefix>
-        <!-- <docker.image.prefix>3.16.217.254:443</docker.image.prefix> -->
+        <!-- <docker.image.prefix>10.4.101.92:9084</docker.image.prefix> -->
+        <docker.image.prefix>3.16.217.254:443</docker.image.prefix>
         <docker.image.name>hostcheckout</docker.image.name>
     </properties>
 
