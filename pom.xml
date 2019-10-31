@@ -120,7 +120,7 @@
                 <artifactId>dockerfile-maven-plugin</artifactId>
                 <version>1.4.8</version>
                 <configuration>
-                    <serverId>http://${docker.image.prefix}</serverId>
+                    <dockerHost>http://${docker.image.prefix}</dockerHost>
                     <tag>${project.version}</tag>
                     <image>${project.version}</image>
                     <repository>${docker.image.name}</repository>
