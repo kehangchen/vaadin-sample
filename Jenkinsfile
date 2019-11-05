@@ -128,7 +128,7 @@ pipeline {
 				script {
 					echo 'Retrieving corresponding test project'
 					dir("${test_git_repo}") {
-						git credentialsId: 'JenkinsAccessingLocalGitLab', branch: BRANCH_NAME, url: "http://10.4.101.92:9082/root/${test_git_repo}.git"
+						git credentialsId: git_credentials, branch: BRANCH_NAME, url: "http://10.4.101.92:9082/root/${test_git_repo}.git"
 						//git credentialsId: 'KchenAccessingBitbucket', url: "https://bitbucket.org/merchante-solutions/${test_git_repo}.git"
 							
 						echo 'Performing Component tests'
