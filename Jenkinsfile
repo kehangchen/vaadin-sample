@@ -67,6 +67,7 @@ pipeline {
 					artifact_packaging = readMavenPom().getPackaging()
 					// retrieve repo name
 					service_git_repo = GIT_URL.split("/").last().split(".").first();
+					echo service_git_repo
 					test_git_repo = service_git_repo + test_git_repo;
 				}
 			}
