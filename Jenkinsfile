@@ -1,8 +1,6 @@
 #!/bin/groovy
 
-// def microservice = "vaadin-sample" 
 def service_git_repo = '' 
-// def test_git_repo = service_git_repo + "-tests"
 def test_git_repo = "-tests"
 def slack_channel = '#jenkins'
 def EMAIL_TO = 'kchen@merchante-solutions.com'
@@ -20,7 +18,6 @@ def artifact_id = ''
 def artifact_version = ''
 def artifact_packaging = ''
 def ssh_user = 'docker'
-def docker_registry = 'localhost:5000'
 def docker_container = ''
 def docker_container_name_postfix = ''
 def sonar_qg_wait_time = 5
@@ -38,7 +35,6 @@ pipeline {
 			steps {
 				script {
 					sh 'printenv | sort'
-					echo docker_registry.toUpperCase();
 					def branch_indicator = GIT_BRANCH.minus("origin/").split("/");
 					println("branch name: " + GIT_BRANCH);
 					println("branch_indicator: " + branch_indicator[0]);
