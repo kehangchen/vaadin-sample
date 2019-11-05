@@ -32,6 +32,7 @@ def docker_container = ''
 def docker_container_name_postfix = ''
 def sonar_qg_wait_time = 5
 def git_credentials = "JenkinsAccessingLocalGitLab"
+def branch_indicator = ''
 
 node() { 
 def workspace = pwd() 
@@ -45,7 +46,7 @@ pipeline {
 				script {
 					sh 'printenv | sort'
 					echo docker_registry.toUpperCase();
-					def branch_indicator = GIT_BRANCH.minus("origin/").split("/");
+					branch_indicator = GIT_BRANCH.minus("origin/").split("/");
 					println("branch name: " + GIT_BRANCH);
 					println("branch_indicator: " + branch_indicator[0]);
 					switch (branch_indicator[0].toUpperCase()) {
@@ -131,7 +132,7 @@ pipeline {
 				script {
 					echo 'Retrieving corresponding test project'
 					dir("${test_git_repo}") {
-						git credentialsId: 'JenkinsAccessingLocalGitLab', url: "http://10.4.101.92:9082/root/${test_git_repo}.git"
+						git credentialsId: 'JenkinsAccessingLocalGitLab', branch: branch_indicator, url: "http://10.4.101.92:9082/root/${test_git_repo}.git"
 						//git credentialsId: 'KchenAccessingBitbucket', url: "https://bitbucket.org/merchante-solutions/${test_git_repo}.git"
 							
 						echo 'Performing Component tests'
