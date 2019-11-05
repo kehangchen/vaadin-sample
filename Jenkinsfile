@@ -25,6 +25,7 @@ def docker_container = ''
 def docker_container_name_postfix = ''
 def sonar_qg_wait_time = 5
 def git_credentials = "JenkinsAccessingLocalGitLab"
+def git_repo_url = ''
 
 node() { 
 def workspace = pwd() 
@@ -66,9 +67,10 @@ pipeline {
 					artifact_version = readMavenPom().getVersion()
 					artifact_packaging = readMavenPom().getPackaging()
 					// retrieve repo name
-					service_git_repo = GIT_URL.split("/").last().minus(".git");
+					service_git_repo = GIT_URL.split("/").last().minus(".git")
 					echo service_git_repo
 					test_git_repo = service_git_repo + test_git_repo;
+					git_repo_url = GIT_URL.minus(GIT_URL.split("/").last())
 				}
 			}
 		}
@@ -128,7 +130,7 @@ pipeline {
 				script {
 					echo 'Retrieving corresponding test project'
 					dir("${test_git_repo}") {
-						git credentialsId: git_credentials, branch: BRANCH_NAME, url: "http://10.4.101.92:9082/root/${test_git_repo}.git"
+						git credentialsId: git_credentials, branch: BRANCH_NAME, url: "${git_repo_url}${test_git_repo}.git"
 						//git credentialsId: 'KchenAccessingBitbucket', url: "https://bitbucket.org/merchante-solutions/${test_git_repo}.git"
 							
 						echo 'Performing Component tests'
