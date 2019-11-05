@@ -131,8 +131,8 @@ pipeline {
 				script {
 					echo 'Retrieving corresponding test project'
 					dir("${test_git_repo}") {
-						//git credentialsId: 'JenkinsAccessingLocalGitLab', url: "http://10.4.101.92:9082/root/${test_git_repo}.git"
-						git credentialsId: 'KchenAccessingBitbucket', url: "https://bitbucket.org/merchante-solutions/${test_git_repo}.git"
+						git credentialsId: 'JenkinsAccessingLocalGitLab', url: "http://10.4.101.92:9082/root/${test_git_repo}.git"
+						//git credentialsId: 'KchenAccessingBitbucket', url: "https://bitbucket.org/merchante-solutions/${test_git_repo}.git"
 							
 						echo 'Performing Component tests'
 						if ( use_mvn_global_settings_file_path ) {
