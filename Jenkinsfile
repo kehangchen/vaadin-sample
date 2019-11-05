@@ -1,16 +1,9 @@
 #!/bin/groovy
 
 // def microservice = "vaadin-sample" 
-def service_git_repo = "vaadin-sample" 
-def test_git_repo = service_git_repo + "-tests"
-def docker_repo = "loggingutilityservice"
-def docker_name = "loggingutilityservice-microservice"
-def docker_tag = "1.0.2"
-def job_number ="9"
-def dockerlogin = "mespocadmin"
-def dockerpass = "MeS_PoC2019"
-def git_user ="aswinradhakrishnan93"
-def git_pass = "Redminote%404"
+def service_git_repo = '' 
+// def test_git_repo = service_git_repo + "-tests"
+def test_git_repo = "-tests"
 def slack_channel = '#jenkins'
 def EMAIL_TO = 'kchen@merchante-solutions.com'
 
@@ -72,6 +65,9 @@ pipeline {
 					artifact_id = readMavenPom().getArtifactId()
 					artifact_version = readMavenPom().getVersion()
 					artifact_packaging = readMavenPom().getPackaging()
+					// retrieve repo name
+					service_git_repo = GIT_URL.split("/").last().split(".").first();
+					test_git_repo = service_git_repo + test_git_repo;
 				}
 			}
 		}
